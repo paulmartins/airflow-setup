@@ -1,0 +1,60 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run Dag",
+            "type": "python",
+            "request": "launch",
+            "module": "airflow",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "args": [
+                "dags", "test", "${input:dagId}", "${input:date}" 
+            ],
+            "env": {
+                "PYTHONPATH": "/home/airflow/.local/lib/python3.7/site-packages",
+                "AWS_DEFAULT_REGION": "eu-west-2",
+            },
+            "justMyCode": true
+        },
+        {
+            "name": "Run Task",
+            "type": "python",
+            "request": "launch",
+            "module": "airflow",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "args": [
+                "tasks", "test", "${input:dagId}", "${input:taskId}", "${input:date}" 
+            ],
+            "env": {
+                "PYTHONPATH": "/home/airflow/.local/lib/python3.7/site-packages",
+                "AWS_DEFAULT_REGION": "eu-west-2",
+            },
+            "justMyCode": true
+        }
+    ],
+    "inputs": [
+        {
+            "id": "dagId",
+            "type": "promptString",
+            "description": "Name of your DAG",
+            "default": "custom_dag"
+        },
+        {
+            "id": "taskId",
+            "type": "promptString",
+            "description": "Name of your Task (optional)",
+            "default": "custom_dag_task"
+        },
+        {
+            "id": "date",
+            "type": "promptString",
+            "description": "Execution date",
+            "default": "2023-02-16"
+        }
+    ]
+}
